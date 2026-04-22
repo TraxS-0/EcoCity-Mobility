@@ -34,6 +34,7 @@ object DatabaseFactory {
                 Vehicles,
                 Stops,
                 Routes,
+                RouteStops,
                 Trips
             )
         }
