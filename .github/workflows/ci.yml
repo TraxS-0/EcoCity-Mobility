@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: ecocity_db
+          POSTGRES_USER: ecocity_user
+          POSTGRES_PASSWORD: ecocity_pass
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Generate RSA keys
+        run: |
+          mkdir -p backend/src/main/resources/keys
+          openssl genrsa -out backend/src/main/resources/keys/private.pem 2048
+          openssl rsa -in backend/src/main/resources/keys/private.pem -pubout \
+            -out backend/src/main/resources/keys/public.pem
+
+      - name: Build backend
+        working-directory: backend
+        env:
+          DB_URL: jdbc:postgresql://localhost:5432/ecocity_db
+          DB_USER: ecocity_user
+          DB_PASSWORD: ecocity_pass
+          DB_DRIVER: org.postgresql.Driver
+          DB_POOL_SIZE: "10"
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          GOOGLE_REDIRECT_URI: http://localhost:8080/auth/callback
+        run: ./gradlew build
