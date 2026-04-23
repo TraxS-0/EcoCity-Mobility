@@ -100,8 +100,8 @@ export default function MapPage() {
       )}
 
       <MapContainer
-        center={[28.1, -15.4]}
-        zoom={12}
+        center={[28.086704236575745, -16.72835535781988]}
+        zoom={16}
         style={{ height: '100vh', width: '100%' }}
         zoomControl={false}
       >
