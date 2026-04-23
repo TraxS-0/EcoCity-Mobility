@@ -65,11 +65,7 @@ fun Route.authRoutes() {
             // Genera JWT RS256
             val jwt = JwtConfig.generateToken(userInfo.email)
 
-            call.respond(HttpStatusCode.OK, AuthResponse(
-                token = jwt,
-                email = userInfo.email,
-                name  = userInfo.name
-            ))
+            call.respondRedirect("http://localhost:5173/auth/callback?token=$jwt")
         }
     }
 }
