@@ -14,7 +14,7 @@ const vehicleIcon = (type: string) => L.divIcon({
     border:2px solid white;
     display:flex;align-items:center;justify-content:center;
     font-size:14px;box-shadow:0 2px 8px rgba(0,0,0,0.3)
-  ">${type === 'bus' ? '🚌' : type === 'bike' ? '🚲' : '🛴'}</div>`,
+  ">${type === 'bus' ? '🚌' : type === 'bike' ? '🚲' : type === 'scooter' ? '🛴' : '🚗'}</div>`,
   iconSize: [32, 32],
   iconAnchor: [16, 16]
 })
