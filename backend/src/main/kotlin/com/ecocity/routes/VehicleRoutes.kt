@@ -32,6 +32,11 @@ fun Route.vehicleRoutes() {
             post {
                 val dto = runCatching { call.receive<CreateVehicleDTO>() }.getOrNull()
                     ?: return@post call.respond(HttpStatusCode.BadRequest, "Datos inválidos")
+
+                val validTypes = setOf("bus", "bike", "scooter", "car")
+                if (dto.type !in validTypes)
+                    return@post call.respond(HttpStatusCode.BadRequest, "Tipo inválido: ${dto.type}")
+
                 call.respond(HttpStatusCode.Created, VehicleRepository.create(dto))
             }
 
