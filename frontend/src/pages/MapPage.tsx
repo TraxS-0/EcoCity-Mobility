@@ -1,6 +1,8 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import { useVehicles } from '../hooks/useVehicles'
 import { useStops } from '../hooks/useStops'
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
 
@@ -29,8 +31,14 @@ const stopIcon = L.divIcon({
 })
 
 export default function MapPage() {
+  const navigate = useNavigate()
   const { vehicles, loading: loadingV } = useVehicles()
   const { stops, loading: loadingS } = useStops()
+
+  useEffect(() => {
+    const token = sessionStorage.getItem('token')
+    if (!token) navigate('/')
+  }, [navigate])
 
   return (
     <div style={{ position: 'relative', height: '100vh', width: '100%', background: '#0a0f0d' }}>
@@ -56,7 +64,6 @@ export default function MapPage() {
           </span>
         </div>
 
-        {/* Stats */}
         <div style={{ display: 'flex', gap: 24 }}>
           {[
             { label: 'Vehículos', value: vehicles.length, color: '#34d399' },
@@ -81,7 +88,6 @@ export default function MapPage() {
         </button>
       </div>
 
-      {/* Loading */}
       {(loadingV || loadingS) && (
         <div style={{
           position: 'absolute', inset: 0, zIndex: 999,
@@ -100,9 +106,9 @@ export default function MapPage() {
         zoomControl={false}
       >
         <TileLayer
-            url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
-            attribution="© OpenStreetMap © CARTO"
-            />
+          url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+          attribution="© OpenStreetMap © CARTO"
+        />
         {vehicles.map(v => (
           <Marker key={v.id} position={[v.latitude, v.longitude]} icon={vehicleIcon(v.type)}>
             <Popup>
