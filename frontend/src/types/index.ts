@@ -25,3 +25,9 @@ export interface Route {
   stops: RouteStop[]
   geometry?: string
 }
+
+export interface User {
+  email: string
+  name: string
+  avatarUrl: string
+}

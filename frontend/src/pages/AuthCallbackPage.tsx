@@ -7,7 +7,6 @@ export default function AuthCallbackPage() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
     const token = params.get('token')
-    console.log('token extraído:', token)
 
     if (token) {
         sessionStorage.setItem('token', token)

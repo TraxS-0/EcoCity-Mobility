@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useRoutes } from '../hooks/useRoutes'
 import { getRouteGeometry } from '../services/routing'
+import { useUser } from '../hooks/useUser'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
 
@@ -39,6 +40,7 @@ export default function MapPage() {
   const { routes } = useRoutes()
   const [selectedRouteId, setSelectedRouteId] = useState<string | null>(null)
   const [routeGeometry, setRouteGeometry] = useState<[number, number][]>([])
+  const { user } = useUser()
 
   const [filters, setFilters] = useState({
     bus: true, bike: true, scooter: true, car: true,
@@ -109,23 +111,31 @@ export default function MapPage() {
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         fontFamily: "'DM Sans', sans-serif"
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <img src="/weblogo.png" style={{ width: 24, height: 24, objectFit: 'contain' }} />
-          <span style={{ color: '#f0fdf4', fontSize: 16, fontWeight: 600, letterSpacing: '-0.3px' }}>
-            EcoCity Mobility<span style={{ color: '#34d399' }}>.</span>
-          </span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          {user && (
+            <>
+              {user.avatarUrl && (
+                <img
+                  src={user.avatarUrl}
+                  alt={user.name}
+                  referrerPolicy="no-referrer"
+                  style={{ width: 32, height: 32, borderRadius: '50%', border: '2px solid rgba(52,211,153,0.4)' }}
+                />
+              )}
+              <span style={{ color: '#f0fdf4', fontSize: 14 }}>{user.name}</span>
+            </>
+          )}
+          <button
+            onClick={() => { sessionStorage.removeItem('token'); window.location.href = '/' }}
+            style={{
+              background: 'transparent', border: '1px solid #374151',
+              color: '#6b7280', padding: '6px 14px', borderRadius: 6,
+              fontSize: 13, cursor: 'pointer', fontFamily: 'inherit'
+            }}
+          >
+            Cerrar Sesión
+          </button>
         </div>
-
-        <button
-          onClick={() => { sessionStorage.removeItem('token'); window.location.href = '/' }}
-          style={{
-            background: 'transparent', border: '1px solid #374151',
-            color: '#6b7280', padding: '6px 14px', borderRadius: 6,
-            fontSize: 13, cursor: 'pointer', fontFamily: 'inherit'
-          }}
-        >
-          Cerrar Sesión
-        </button>
       </div>
 
       {/* Sidebar */}
