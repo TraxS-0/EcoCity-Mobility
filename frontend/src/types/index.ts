@@ -23,4 +23,5 @@ export interface Route {
   id: string
   name: string
   stops: RouteStop[]
+  geometry?: string
 }

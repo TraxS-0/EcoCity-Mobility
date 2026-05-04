@@ -45,6 +45,7 @@ object RouteRepository {
             dto.name?.let        { v -> it[name]        = v }
             dto.distanceKm?.let  { v -> it[distanceKm]  = v }
             dto.durationMin?.let { v -> it[durationMin] = v }
+            dto.geometry?.let    { v -> it[geometry]    = v }
         }
         if (updated == 0) return@transaction null
 
@@ -83,6 +84,7 @@ object RouteRepository {
         type        = this[Routes.type],
         distanceKm  = this[Routes.distanceKm],
         durationMin = this[Routes.durationMin],
-        stops       = getStopsForRoute(id)
+        stops       = getStopsForRoute(id),
+        geometry    = this[Routes.geometry]
     )
 }

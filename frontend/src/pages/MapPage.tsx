@@ -61,6 +61,14 @@ export default function MapPage() {
     const route = routes.find(r => r.id === selectedRouteId)
     if (!route) return
 
+    // Si ya tiene geometría guardada, úsala directamente
+    if (route.geometry) {
+      const coords: [number, number][] = JSON.parse(route.geometry)
+      setRouteGeometry(coords)
+      return
+    }
+
+    // Si no, llama a ORS y guarda el resultado
     const coords = route.stops
       .slice().sort((a, b) => a.order - b.order)
       .map(rs => stops.find(s => s.id === rs.stopId))
@@ -69,9 +77,18 @@ export default function MapPage() {
 
     if (coords.length < 2) return
 
-    getRouteGeometry(coords)
-      .then(setRouteGeometry)
-      .catch(console.error)
+    getRouteGeometry(coords).then(geometry => {
+      setRouteGeometry(geometry)
+      // Guarda en BD para la próxima vez
+      fetch(`/api/routes/${selectedRouteId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+        },
+        body: JSON.stringify({ geometry: JSON.stringify(geometry) })
+      }).catch(console.error)
+    }).catch(console.error)
   }, [selectedRouteId, routes, stops])
 
   const filteredVehicles = vehicles.filter(v =>
