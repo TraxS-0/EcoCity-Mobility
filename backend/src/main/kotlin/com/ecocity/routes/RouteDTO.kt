@@ -10,7 +10,8 @@ data class RouteDTO(
     val distanceKm: Double,
     val durationMin: Int,
     val stops: List<RouteStopDTO>,
-    val geometry: String? = null
+    val geometry: String? = null,
+    val co2Saved: Double
 )
 
 @Serializable
@@ -25,7 +26,8 @@ data class CreateRouteDTO(
     val type: String,
     val distanceKm: Double,
     val durationMin: Int,
-    val stops: List<RouteStopDTO>
+    val stops: List<RouteStopDTO>,
+    val co2Saved: Double = 0.0
 )
 
 @Serializable
@@ -34,5 +36,6 @@ data class UpdateRouteDTO(
     val distanceKm: Double? = null,
     val durationMin: Int? = null,
     val stops: List<RouteStopDTO>? = null,
-    val geometry: String? = null
+    val geometry: String? = null,
+    val co2Saved: Double? = null
 )

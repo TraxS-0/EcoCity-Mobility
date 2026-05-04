@@ -34,6 +34,7 @@ object RouteRepository {
             it[type]        = dto.type
             it[distanceKm]  = dto.distanceKm
             it[durationMin] = dto.durationMin
+            it[co2Saved] = dto.co2Saved
         } get Routes.id
 
         insertStops(newId, dto.stops)
@@ -46,6 +47,7 @@ object RouteRepository {
             dto.distanceKm?.let  { v -> it[distanceKm]  = v }
             dto.durationMin?.let { v -> it[durationMin] = v }
             dto.geometry?.let    { v -> it[geometry]    = v }
+            dto.co2Saved?.let { v -> it[co2Saved] = v }
         }
         if (updated == 0) return@transaction null
 
@@ -85,6 +87,7 @@ object RouteRepository {
         distanceKm  = this[Routes.distanceKm],
         durationMin = this[Routes.durationMin],
         stops       = getStopsForRoute(id),
-        geometry    = this[Routes.geometry]
+        geometry    = this[Routes.geometry],
+        co2Saved = this[Routes.co2Saved]
     )
 }

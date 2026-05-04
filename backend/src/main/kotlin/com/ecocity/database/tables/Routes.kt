@@ -9,6 +9,7 @@ object Routes : Table("routes") {
     val distanceKm  = double("distance_km")
     val durationMin = integer("duration_min")
     val geometry    = text("geometry").nullable()
+    val co2Saved = double("co2_saved").default(0.0)
 
     override val primaryKey = PrimaryKey(id)
 }
