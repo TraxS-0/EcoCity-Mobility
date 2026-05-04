@@ -24,6 +24,7 @@ export interface Route {
   name: string
   stops: RouteStop[]
   geometry?: string
+  co2Saved: number
 }
 
 export interface User {

@@ -229,21 +229,28 @@ export default function MapPage() {
         <div>
         <p style={{ color: '#6b7280', fontSize: 11, letterSpacing: 1, textTransform: 'uppercase', marginBottom: 12 }}>Rutas</p>
         {routes.map(r => (
-            <div
+          <div
             key={r.id}
             onClick={() => setSelectedRouteId(prev => prev === r.id ? null : r.id)}
             style={{
-                display: 'flex', alignItems: 'center', gap: 10,
-                padding: '8px 10px', borderRadius: 8, marginBottom: 4,
-                cursor: 'pointer',
-                background: selectedRouteId === r.id ? 'rgba(52,211,153,0.1)' : 'transparent',
-                border: `1px solid ${selectedRouteId === r.id ? '#34d399' : 'transparent'}`,
-                transition: 'all 0.2s'
+              display: 'flex', flexDirection: 'column', gap: 4,
+              padding: '8px 10px', borderRadius: 8, marginBottom: 4,
+              cursor: 'pointer',
+              background: selectedRouteId === r.id ? 'rgba(52,211,153,0.1)' : 'transparent',
+              border: `1px solid ${selectedRouteId === r.id ? '#34d399' : 'transparent'}`,
+              transition: 'all 0.2s'
             }}
-            >
-            <span style={{ fontSize: 16 }}>🗺️</span>
-            <span style={{ color: selectedRouteId === r.id ? '#f0fdf4' : '#6b7280', fontSize: 14 }}>{r.name}</span>
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <span style={{ fontSize: 16 }}>🗺️</span>
+              <span style={{ color: selectedRouteId === r.id ? '#f0fdf4' : '#6b7280', fontSize: 14 }}>{r.name}</span>
             </div>
+            {selectedRouteId === r.id && (
+              <div style={{ paddingLeft: 26, color: '#34d399', fontSize: 12 }}>
+                🌿 {r.co2Saved} kg CO₂ ahorrado
+              </div>
+            )}
+          </div>
         ))}
         {routes.length === 0 && (
             <p style={{ color: '#374151', fontSize: 13 }}>Sin rutas</p>
