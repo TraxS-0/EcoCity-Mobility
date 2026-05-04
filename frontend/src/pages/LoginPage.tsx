@@ -20,24 +20,13 @@ export default function LoginPage() {
     }}>
       <div style={{
         position: 'absolute', inset: 0,
-        background: 'rgba(0,0,0,0.85)'
+        background: 'rgba(0,0,0,0.95)'
       }} />
       {/* Grid background */}
       <div style={{
         position: 'absolute', inset: 0,
         backgroundImage: 'linear-gradient(rgba(52,211,153,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(52,211,153,0.05) 1px, transparent 1px)',
         backgroundSize: '40px 40px'
-      }} />
-
-      {/* Glow */}
-      <div style={{
-        position: 'absolute',
-        width: 500, height: 500,
-        borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(52,211,153,0.12) 0%, transparent 70%)',
-        top: '50%', left: '50%',
-        transform: 'translate(-50%, -50%)',
-        pointerEvents: 'none'
       }} />
 
       <div style={{
@@ -51,7 +40,7 @@ export default function LoginPage() {
         <div style={{
           display: 'inline-flex', alignItems: 'center', gap: 10, marginBottom: 48
         }}>
-          <img src="/weblogo.png" style={{ width: 48, height: 48, objectFit: 'contain' }} />
+          <img src="/weblogo.png" style={{ width: 48, height: 48, objectFit: 'contain' }} alt="EcoCityLogo"/>
           <span style={{ color: '#f0fdf4', fontSize: 18, fontWeight: 600, letterSpacing: '-0.3px' }}>
             EcoCity<span style={{ color: '#34d399' }}>.</span>
           </span>

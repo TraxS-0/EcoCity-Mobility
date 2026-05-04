@@ -157,12 +157,12 @@ export default function MapPage() {
         }}>
         {/* Tipos */}
         <div>
-          <p style={{ color: '#6b7280', fontSize: 11, letterSpacing: 1, textTransform: 'uppercase', marginBottom: 12 }}>Tipo</p>
+          <p style={{ color: '#ffffff', fontSize: 11, letterSpacing: 1, textTransform: 'uppercase', marginBottom: 12 }}>Tipo</p>
           {[
-            { key: 'bus',     label: 'Bus',      emoji: '🚌', color: '#3b82f6' },
-            { key: 'bike',    label: 'Bici',     emoji: '🚲', color: '#34d399' },
-            { key: 'scooter', label: 'Patinete', emoji: '🛴', color: '#f59e0b' },
-            { key: 'car',     label: 'Coche',    emoji: '🚗', color: '#a78bfa' },
+            { key: 'bus',     label: 'Bus',      emoji: '🚌', color: '#00ffa2' },
+            { key: 'bike',    label: 'Bici',     emoji: '🚲', color: '#00ffa2' },
+            { key: 'scooter', label: 'Patinete', emoji: '🛴', color: '#00ffa2' },
+            { key: 'car',     label: 'Coche',    emoji: '🚗', color: '#00ffa2' },
           ].map(({ key, label, emoji, color }) => (
             <div
               key={key}
@@ -177,17 +177,17 @@ export default function MapPage() {
               }}
             >
               <span style={{ fontSize: 16 }}>{emoji}</span>
-              <span style={{ color: filters[key as keyof typeof filters] ? '#f0fdf4' : '#6b7280', fontSize: 14 }}>{label}</span>
+              <span style={{ color: filters[key as keyof typeof filters] ? '#ffffff' : '#ffffff', fontSize: 14 }}>{label}</span>
             </div>
           ))}
         </div>
 
         {/* Estado */}
         <div>
-          <p style={{ color: '#6b7280', fontSize: 11, letterSpacing: 1, textTransform: 'uppercase', marginBottom: 12 }}>Estado</p>
+          <p style={{ color: '#ffffff', fontSize: 11, letterSpacing: 1, textTransform: 'uppercase', marginBottom: 12 }}>Estado</p>
           {[
-            { key: 'active',   label: 'Activo',   color: '#34d399' },
-            { key: 'inactive', label: 'Inactivo', color: '#ef4444' },
+            { key: 'active',   label: 'Activo',   color: '#00ffa2' },
+            { key: 'inactive', label: 'Inactivo', color: '#ff0000' },
           ].map(({ key, label, color }) => (
             <div
               key={key}
@@ -202,14 +202,14 @@ export default function MapPage() {
               }}
             >
               <div style={{ width: 8, height: 8, borderRadius: '50%', background: color }} />
-              <span style={{ color: filters[key as keyof typeof filters] ? '#f0fdf4' : '#6b7280', fontSize: 14 }}>{label}</span>
+              <span style={{ color: filters[key as keyof typeof filters] ? '#ffffff' : '#ffffff', fontSize: 14 }}>{label}</span>
             </div>
           ))}
         </div>
 
         {/* Paradas */}
         <div>
-          <p style={{ color: '#6b7280', fontSize: 11, letterSpacing: 1, textTransform: 'uppercase', marginBottom: 12 }}>Capas</p>
+          <p style={{ color: '#ffffff', fontSize: 11, letterSpacing: 1, textTransform: 'uppercase', marginBottom: 12 }}>Capas</p>
           <div
             onClick={() => setFilters(f => ({ ...f, stops: !f.stops }))}
             style={{
@@ -222,12 +222,12 @@ export default function MapPage() {
             }}
           >
             <span style={{ fontSize: 16 }}>🚏</span>
-            <span style={{ color: filters.stops ? '#f0fdf4' : '#6b7280', fontSize: 14 }}>Paradas</span>
+            <span style={{ color: filters.stops ? '#ffffff' : '#ffffff', fontSize: 14 }}>Paradas</span>
           </div>
         </div>
         {/* Rutas */}
         <div>
-        <p style={{ color: '#6b7280', fontSize: 11, letterSpacing: 1, textTransform: 'uppercase', marginBottom: 12 }}>Rutas</p>
+        <p style={{ color: '#ffffff', fontSize: 11, letterSpacing: 1, textTransform: 'uppercase', marginBottom: 12 }}>Rutas</p>
         {routes.map(r => (
           <div
             key={r.id}
@@ -236,18 +236,18 @@ export default function MapPage() {
               display: 'flex', flexDirection: 'column', gap: 4,
               padding: '8px 10px', borderRadius: 8, marginBottom: 4,
               cursor: 'pointer',
-              background: selectedRouteId === r.id ? 'rgba(52,211,153,0.1)' : 'transparent',
+              background: selectedRouteId === r.id ? 'rgba(244, 244, 244, 0.1)' : 'transparent',
               border: `1px solid ${selectedRouteId === r.id ? '#34d399' : 'transparent'}`,
               transition: 'all 0.2s'
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               <span style={{ fontSize: 16 }}>🗺️</span>
-              <span style={{ color: selectedRouteId === r.id ? '#f0fdf4' : '#6b7280', fontSize: 14 }}>{r.name}</span>
+              <span style={{ color: selectedRouteId === r.id ? '#ffffff' : '#ffffff', fontSize: 14 }}>{r.name}</span>
             </div>
             {selectedRouteId === r.id && (
-              <div style={{ paddingLeft: 26, color: '#34d399', fontSize: 12 }}>
-                🌿 {r.co2Saved} kg CO₂ ahorrado
+              <div style={{ paddingLeft: 26, color: '#00ffa2', fontSize: 12 }}>
+                {r.co2Saved} g CO₂ ahorrado
               </div>
             )}
           </div>
